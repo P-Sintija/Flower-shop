@@ -15,9 +15,8 @@ use FlowerShop\Warehouse\WarehouseTwo;
 $flowerPowerCSV = "Storages/flower-power.csv";
 $plantsWorldJSON = file_get_contents('Storages/plants-world.json');
 
-// .csv data:
-$wareHouse1 = new WarehouseOne('Storage ONE');
 
+$wareHouse1 = new WarehouseOne('Storage ONE');
 $itemsCSV = [];
 if (($file = fopen($flowerPowerCSV, "r")) !== FALSE) {
     while (($data = fgetcsv($file, 20, ",")) !== FALSE) {
@@ -39,9 +38,7 @@ $wareHouse1->addItemsAmount('lily', 50);
 $wareHouse1->addItemsAmount('ordinary', 20);
 
 
-// .json data:
 $wareHouse2 = new WarehouseTwo('Storage TWO');
-
 foreach (json_decode($plantsWorldJSON, true) as $item) {
     if ($item['type'] == 'candle') {
         $wareHouse2->addToStock(new Candle($item['name'], $item['type']));
@@ -50,10 +47,10 @@ foreach (json_decode($plantsWorldJSON, true) as $item) {
     }
 }
 
-
 $wareHouse2->addItemsAmount('tulip', 113);
 $wareHouse2->addItemsAmount('rose', 40);
 $wareHouse2->addItemsAmount('honey', 666);
+
 
 $wareHouse3 = new WarehouseThree('Storage THREE');
 $wareHouse3->addToStock(new Candle('aromatherapy', 'candle'), 20);
@@ -109,76 +106,6 @@ function showCorrespondingWarehouses(Product $product, FlowerShop $shop): void
     }
 }
 
-
-
-?>
-
-
-
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>
-    </title>
-</head>
-
-<body>
-
-<h1 style="color:green;">
-    Plants Plants Plants!!!
-</h1>
-
-<table border='1' cellpadding='0' cellspacing='0' width='50%'>
-    <tr>
-        <th>Nr.</th>
-        <th>Product type</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>In Stock</th>
-    </tr>
-
-    <?php
-    $counter = 1;
-    foreach ($shop->onlyPricedProducts() as $product) {
-        $productsNumber = $counter++; ?>
-        <tr style="text-align:center;">
-            <td>
-            <form method="post">
-                <input type="submit" name= <?php echo $productsNumber ?>
-                       class="button" value=<?php echo $productsNumber ?> />
-            </td>
-            <td><?php echo $product->getProduct()->getItemsType() ?></td>
-            <td><?php echo $product->getProduct()->getItemsName() ?></td>
-            <td><?php echo number_format($product->getPrice()/100,2) ?></td>
-            <td><?php echo $product->getAmount() ?></td>
-        </tr>
-    <?php } ?>
-</table>
-
-<form method="post">
-    <label for="amount">Amount:</label><br>
-    <input type="text" id="amount" name="amount"><br>
-
-
-<?php
-
-    $costumersChoice = array_keys($_POST)['0'];
-    $gender = 'female';
-    $costumersAmount = (int)$_POST["amount"];
-    $selectedProduct = $shop->onlyPricedProducts()[$costumersChoice - 1];
-    $price = calculateFee($gender, $selectedProduct, $costumersAmount, $shop);
-echo'<br>';
-    showBill($selectedProduct, $costumersAmount, $price);
-echo'<br>';
-    showCorrespondingWarehouses($selectedProduct, $shop);
-    ?>
-
-</body>
-
-</html>
-
-
+require_once 'view.php';
 
 
