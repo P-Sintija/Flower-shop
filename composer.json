@@ -1,0 +1,15 @@
+{
+    "name": "user/flower-shop",
+    "authors": [
+        {
+            "name": "P-Sintija",
+            "email": "sintija.putnina@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "FlowerShop\\": "app/"
+        }
+    }
+}

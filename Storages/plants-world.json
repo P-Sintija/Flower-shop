@@ -1,0 +1,15 @@
+[
+  {
+    "name": "tulip",
+    "type": "flower"
+  },
+  {
+    "name": "rose",
+    "type": "flower"
+  },
+  {
+    "name": "honey",
+    "type": "candle"
+  }
+]
+
