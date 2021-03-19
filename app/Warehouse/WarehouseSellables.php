@@ -4,15 +4,24 @@ namespace FlowerShop\Warehouse;
 
 use FlowerShop\Sellables\Sellable;
 use FlowerShop\Sellables\SellableCollection;
+use FlowerShop\Sellables\Candle;
+use FlowerShop\Sellables\Flower;
 
-class WarehouseOne implements Warehouse
+class WarehouseSellables implements Warehouse
 {
+
     private string $name;
     private array $itemsInStock;
 
     public function __construct(string $name)
     {
         $this->name = $name;
+
+        $this->addToStock(new Candle('aromatherapy', 'candle'), 20);
+        $this->addToStock(new Flower('tulip', 'flower'), 100);
+        $this->addToStock(new Flower('lily', 'flower'), 350);
+        $this->addToStock(new Flower('cactus', 'flower'), 150);
+
     }
 
     public function getWarehouseName(): string
@@ -20,23 +29,6 @@ class WarehouseOne implements Warehouse
         return $this->name;
     }
 
-    public function addToStock(Sellable $item): void
-    {
-        $this->itemsInStock[] = [$item, 0];
-    }
-
-    public function addItemsAmount(string $item, int $amount): void
-    {
-        if ($amount < 0) {
-            $amount = 0;
-        }
-
-        for ($i = 0; $i < count($this->itemsInStock); $i++) {
-            if ($this->itemsInStock[$i][0]->getItemsName() === $item) {
-                $this->itemsInStock[$i][1] = $amount;
-            }
-        }
-    }
 
     public function getStockProducts(): SellableCollection
     {
@@ -58,4 +50,10 @@ class WarehouseOne implements Warehouse
         return $amount;
     }
 
+    private function addToStock(Sellable $item, int $amount): void
+    {
+        $this->itemsInStock[] = [$item, $amount];
+    }
+
 }
+

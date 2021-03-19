@@ -2,10 +2,13 @@
 
 namespace FlowerShop\Warehouse;
 
+use FlowerShop\Sellables\Flowerpot;
 use FlowerShop\Sellables\Sellable;
 use FlowerShop\Sellables\SellableCollection;
 
-class WarehouseTwo implements Warehouse
+use Medoo\Medoo;
+
+class WarehouseSQL implements Warehouse
 {
     private string $name;
     private array $itemsInStock;
@@ -13,29 +16,27 @@ class WarehouseTwo implements Warehouse
     public function __construct(string $name)
     {
         $this->name = $name;
+
+        $database = new Medoo([
+            'database_type' => 'mysql',
+            'database_name' => 'flowershop',
+            'server' => 'localhost',
+            'username' => 'root',
+            'password' => ''
+        ]);
+
+        $data = $database->select('products', '*');
+
+        foreach ($data as $info) {
+            $this->addToStock(
+                new Flowerpot($info['name'], $info['type']), (int)$info['amount']);
+        }
+
     }
 
     public function getWarehouseName(): string
     {
         return $this->name;
-    }
-
-    public function addToStock(Sellable $item): void
-    {
-        $this->itemsInStock[] = [$item, 0];
-    }
-
-    public function addItemsAmount(string $item, int $amount): void
-    {
-        if ($amount < 0) {
-            $amount = 0;
-        }
-
-        for ($i = 0; $i < count($this->itemsInStock); $i++) {
-            if ($this->itemsInStock[$i][0]->getItemsName() === $item) {
-                $this->itemsInStock[$i][1] = $amount;
-            }
-        }
     }
 
     public function getStockProducts(): SellableCollection
@@ -58,6 +59,10 @@ class WarehouseTwo implements Warehouse
         return $amount;
     }
 
+    private function addToStock(Sellable $item, int $amount): void
+    {
+        $this->itemsInStock[] = [$item, $amount];
+    }
+
+
 }
-
-

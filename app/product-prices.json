@@ -1,0 +1,47 @@
+[
+  {
+    "name": "tulip",
+    "type": "flower",
+    "price": "100"
+  },
+  {
+    "name": "lily",
+    "type": "flower",
+    "price": "350"
+  },
+  {
+    "name": "rose",
+    "type": "flower",
+    "price": "200"
+  },
+  {
+    "name": "cactus",
+    "type": "flower",
+    "price": "250"
+  },
+  {
+    "name": "ordinary",
+    "type": "candle",
+    "price": "150"
+  },
+  {
+    "name": "honey",
+    "type": "candle",
+    "price": "250"
+  },
+  {
+    "name": "aromatherapy",
+    "type": "candle",
+    "price": "500"
+  },
+  {
+    "name": "vase",
+    "type": "flowerpot",
+    "price": "340"
+  },
+  {
+    "name": "clay pot",
+    "type": "flowerpot",
+    "price": "220"
+  }
+]

@@ -12,7 +12,6 @@ class FlowerShop
     private int $discount = 0;
     private ?string $discountRecipient;
 
-
     public function setWarehouses(WarehouseCollection $warehouses): void
     {
         $this->warehouseList = $warehouses;
@@ -24,16 +23,7 @@ class FlowerShop
         $allItems = $this->possibleItemList();
         $uniqueItems = $this->removeDuplicates($allItems);
         $this->addProductsToList($uniqueItems);
-    }
-
-    public function setProductPrice(Product $product, int $price): void
-    {
-        for ($i = 0; $i < count($this->products->getAllProducts()); $i++) {
-            $item = $this->products->getAllProducts()[$i];
-            if ($item->getProduct()->getItemsName() === $product->getProduct()->getItemsName()) {
-                $item->setPrice($price);
-            }
-        }
+        $this->setProductsPrices();
     }
 
 
@@ -129,6 +119,24 @@ class FlowerShop
             }
         }
         return array_sum($amount);
+    }
+
+    private function setProductsPrices(): void
+    {
+        $priceInfoJSON = file_get_contents('app/product-prices.json');
+        $entries = json_decode($priceInfoJSON, true);
+
+        for ($i = 0; $i < count($this->products->getAllProducts()); $i++) {
+            for ($e = 0; $e < count($entries); $e++) {
+
+                $item = $this->products->getAllProducts()[$i]->getProduct();
+                $product = $this->products->getAllProducts()[$i];
+
+                if ($item->getItemsName() == $entries[$e]['name'] && $item->getItemsType() == $entries[$e]['type']) {
+                    $product->setPrice((int)$entries[$e]['price']);
+                }
+            }
+        }
     }
 
 

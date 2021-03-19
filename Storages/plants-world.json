@@ -1,15 +1,18 @@
 [
   {
     "name": "tulip",
-    "type": "flower"
+    "type": "flower",
+    "amount": "113"
   },
   {
     "name": "rose",
-    "type": "flower"
+    "type": "flower",
+    "amount": "44"
   },
   {
     "name": "honey",
-    "type": "candle"
+    "type": "candle",
+    "amount": "666"
   }
 ]
 

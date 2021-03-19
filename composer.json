@@ -6,7 +6,10 @@
             "email": "sintija.putnina@gmail.com"
         }
     ],
-    "require": {},
+    "require": {
+        "ext-json": "*",
+        "catfan/medoo": "^1.7"
+    },
     "autoload": {
         "psr-4": {
             "FlowerShop\\": "app/"

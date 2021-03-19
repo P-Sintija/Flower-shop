@@ -2,7 +2,6 @@
 
 namespace FlowerShop;
 
-
 use FlowerShop\Sellables\Sellable;
 
 class Product

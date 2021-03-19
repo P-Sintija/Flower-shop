@@ -2,6 +2,7 @@
 
 namespace FlowerShop;
 
+
 class ProductCollection
 {
     private array $products;
