@@ -57,6 +57,25 @@ function showCorrespondingWarehouses(Product $product, FlowerShop $shop): void
     }
 }
 
+function showResults(FlowerShop $shop): void
+{
+    if (isset($_POST["number"]) && isset($_POST["amount"])) {
+        $costumersChoice = (int)$_POST["number"];
+        $gender = 'female';
+        $costumersAmount = (int)$_POST["amount"];
+        $selectedProduct = $shop->onlyPricedProducts()[$costumersChoice - 1];
+
+        if ($costumersChoice >= 1 && $costumersAmount > 0) {
+            $price = calculateFee($gender, $selectedProduct, $costumersAmount, $shop);
+            echo '<br>';
+            showBill($selectedProduct, $costumersAmount, $price);
+            echo '<br>';
+            showCorrespondingWarehouses($selectedProduct, $shop);
+        }
+    }
+}
+
+
 require_once 'view.php';
 
 

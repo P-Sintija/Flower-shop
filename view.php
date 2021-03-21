@@ -42,20 +42,7 @@
     <input type="text" id="amount" name="amount"><br>
 
     <?php
-    if (isset($_POST["number"]) && isset($_POST["amount"])) {
-        $costumersChoice = (int)$_POST["number"];
-        $gender = 'female';
-        $costumersAmount = (int)$_POST["amount"];
-        $selectedProduct = $shop->onlyPricedProducts()[$costumersChoice - 1];
-
-        if ($costumersChoice >= 1 && $costumersAmount > 0) {
-            $price = calculateFee($gender, $selectedProduct, $costumersAmount, $shop);
-            echo '<br>';
-            showBill($selectedProduct, $costumersAmount, $price);
-            echo '<br>';
-            showCorrespondingWarehouses($selectedProduct, $shop);
-        }
-    }
+    showResults($shop);
     ?>
 
 </body>
